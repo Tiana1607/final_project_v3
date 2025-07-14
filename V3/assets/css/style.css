@@ -1,0 +1,175 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fcf9f7;
+    color: #2c3e50;
+}
+
+.connexion .container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 35px 30px;
+    max-width: 600px;
+    box-shadow: 0 8px 25px rgba(44, 62, 80, 0.2);
+}
+
+.connexion img {
+    margin-bottom: 20px;
+}
+
+.connexion h3 {
+    color: #ff6f3c;
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+.connexion input[type="email"],
+.connexion input[type="password"] {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.connexion input[type="email"]:focus,
+.connexion input[type="password"]:focus {
+    outline: none;
+    border-color: #1abc9c;
+    background-color: #e6fffb;
+}
+
+.connexion input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #ff6f3c;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.connexion input[type="submit"]:hover {
+    background-color: #e65a1c;
+}
+
+#creation_compte {
+    color: #1abc9c;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+#creation_compte:hover {
+    color: #159a85;
+    text-decoration: underline;
+}
+
+label[for="creation_compte"] {
+    color: #1abc9c;
+    font-weight: 500;
+}
+
+.alert-danger {
+    background-color: #ffb4aa;
+    color: #d83f25;
+    border: 1.5px solid #d83f25;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 15px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-danger svg {
+    fill: #d83f25;
+}
+
+@media (max-width: 400px) {
+    .connexion .container {
+        padding: 25px 20px;
+        max-width: 320px;
+    }
+}
+
+.inscription .container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 35px 30px;
+    max-width: 500px;
+    box-shadow: 0 8px 25px rgba(44, 62, 80, 0.2);
+}
+
+.inscription img {
+    margin-bottom: 20px;
+}
+
+.inscription h3 {
+    color: #ff6f3c;
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+.inscription input[type="text"],
+.inscription input[type="email"],
+.inscription input[type="date"],
+.inscription input[type="password"] {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    color: #2c3e50;
+}
+
+.inscription input[type="text"]:focus,
+.inscription input[type="email"]:focus,
+.inscription input[type="date"]:focus,
+.inscription input[type="password"]:focus {
+    outline: none;
+    border-color: #1abc9c;
+    background-color: #e6fffb;
+}
+
+.inscription input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #ff6f3c;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.inscription input[type="submit"]:hover {
+    background-color: #e65a1c;
+}
+
+h6.fw-bold {
+    margin-bottom: 8px;
+    color: #1abc9c;
+    font-weight: 700;
+}
+
+.inscription.position-absolute {
+    width: 100%;
+    max-width: 420px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

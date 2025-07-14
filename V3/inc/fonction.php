@@ -1,5 +1,5 @@
 <?php
-require 'connexion.php';
+require('connexion.php');
 
 /* Inscription et connexion */
 function inscription($email, $nom, $date_de_naissance, $mdp)
@@ -249,7 +249,7 @@ function filtre_objets($id_categorie = 0, $recherche = '', $disponible_seulement
 function emprunter_objet($id_objet, $id_utilisateur, $date_retour) {
     $mysqli = connection();
     
-    $sql = "INSERT INTO emprunts (id_objet, id_utilisateur, date_emprunt, date_retour) 
+    $sql = "INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) 
             VALUES (?, ?, NOW(), ?)";
     $stmt = $mysqli->prepare($sql);
     
@@ -269,7 +269,7 @@ function emprunter_objet($id_objet, $id_utilisateur, $date_retour) {
 
 function get_objet_by_id($id_objet) {
     $connexion = connection();
-    $id_objet = intval($id_objet); // Sécurité contre les injections SQL
+    $id_objet = intval($id_objet);
     
     $sql = "SELECT * FROM Objet WHERE id_objet = ?";
     $stmt = $connexion->prepare($sql);
@@ -288,3 +288,82 @@ function get_objet_by_id($id_objet) {
     
     return $result->fetch_assoc();
 }
+
+function list_obj_emprunte($id_membre)
+{
+    $connexion = connection();
+
+    $sql = "SELECT o.id_objet, o.nom_objet, e.date_retour, i.nom_image 
+            FROM Objet o 
+            JOIN emprunt e ON o.id_objet = e.id_objet 
+            JOIN images_objet i ON e.id_objet = i.id_objet
+            WHERE e.id_membre = %d";
+    $sql = sprintf($sql, $id_membre);
+
+    $trait = mysqli_query($connexion, $sql);
+
+    $liste = array();
+
+    while ($res = mysqli_fetch_assoc($trait)) {
+        $liste[] = $res;
+    }
+    mysqli_free_result($trait);
+    deconnection($connexion);
+    return $liste;
+}
+
+function verifier_emprunt_utilisateur($id_membre, $id_objet) {
+    $connexion = connection();
+    
+    $sql = "SELECT * FROM emprunt 
+            WHERE id_membre = $id_membre 
+            AND id_objet = $id_objet 
+            AND date_retour IS NULL";
+    
+    $resultat = mysqli_query($connexion, $sql);
+    $existe = mysqli_num_rows($resultat) > 0;
+    
+    mysqli_free_result($resultat);
+    deconnection($connexion);
+    
+    return $existe;
+}
+
+function marquer_objet_abime($id_objet) {
+    $connexion = connection();
+    
+    $sql = "UPDATE Objet SET abime = 1 WHERE id_objet = $id_objet";
+    $result = mysqli_query($connexion, $sql);
+    
+    deconnection($connexion);
+    return $result;
+}
+
+function retourner_objet($id_objet, $id_membre) {
+    $connexion = connection();
+    $date_retour = date('Y-m-d');
+    
+    $sql = "UPDATE emprunt 
+            SET date_retour = '$date_retour' 
+            WHERE id_objet = $id_objet 
+            AND id_membre = $id_membre 
+            AND date_retour IS NULL";
+    
+    $result = mysqli_query($connexion, $sql);
+    deconnection($connexion);
+    return $result;
+}
+
+function verifier_etat_objet($id_objet) {
+    $connexion = connection();
+    
+    $sql = "SELECT abime FROM Objet WHERE id_objet = $id_objet";
+    $resultat = mysqli_query($connexion, $sql);
+    $objet = mysqli_fetch_assoc($resultat);
+    
+    mysqli_free_result($resultat);
+    deconnection($connexion);
+    
+    return $objet['abime'] == 0;
+}
+?>

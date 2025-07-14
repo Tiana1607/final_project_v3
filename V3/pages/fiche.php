@@ -15,6 +15,9 @@ $grouped_objects = [];
 foreach ($membre_info['objets'] as $objet) {
     $grouped_objects[$objet['nom_categorie']][] = $objet;
 }
+
+$obj_empruntes = list_obj_emprunte($user['id_membre']);
+$im = get_img_obj($id_objet);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -45,7 +48,8 @@ foreach ($membre_info['objets'] as $objet) {
     <main class="container">
         <section class="profil mb-4">
             <div class="text-center">
-                <img src="<?= $user['image_profile'] ?>" alt="Image de profil" class="rounded-circle" style="width: 150px; height: 150px;">
+                <img src="<?= $user['image_profile'] ?>" alt="Image de profil" class="rounded-circle"
+                    style="width: 150px; height: 150px;">
                 <h3><?= htmlspecialchars($user['nom']) ?></h3>
                 <p>Email : <?= htmlspecialchars($user['email']) ?></p>
                 <p>Date de naissance : <?= htmlspecialchars($user['date_naissance']) ?></p>
@@ -72,6 +76,27 @@ foreach ($membre_info['objets'] as $objet) {
                     </div>
                 </div>
             <?php endforeach; ?>
+        </section>
+
+        <section class="objets">
+            <h2 class="text-center mb-4">Objets empruntés</h2>
+                <div class="mb-4">
+                    <div class="row g-4">
+                    <?php foreach ($obj_empruntes as $ob): ?>
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="card h-100">
+                                <img src="<?= $ob['nom_image'] ?>" class="card-img-top" alt="Image Objet" style="height: 260px;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= htmlspecialchars($ob['nom_objet']) ?></h5>
+                                </div>
+                                <a href="confirmer_retour.php?id_objet=<?= $ob['id_objet'] ?>"
+                                            class="btn btn-success mt-auto">Retourner</a>
+                            </div>
+                            
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
         </section>
     </main>
 

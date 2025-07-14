@@ -13,7 +13,6 @@ if (!isset($_GET['id_objet'])) {
 }
 
 $id_objet = $_GET['id_objet'];
-$objet = get_objet_by_id($id_objet);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date_retour = date('Y-m-d', strtotime($_POST['date_retour']));
@@ -44,8 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
-    
     <div class="container">
         <div class="emprunt-container bg-white">
             <h2 class="text-center mb-4">Emprunter <?= htmlspecialchars($objet['nom_objet']) ?></h2>
@@ -69,11 +66,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Définir la date minimale (demain) par défaut
-        document.getElementById('date_retour').valueAsDate = new Date(new Date().getTime() + 86400000);
-    </script>
 </body>
 </html>
